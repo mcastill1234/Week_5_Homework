@@ -4,6 +4,7 @@ from code_for_hw5 import *
 
 class Test(TestCase):
     """Unit testing for code_for_hw5"""
+
     def setUp(self):
         self.X = np.array([[1., 2., 3., 4.], [1., 1., 1., 1.]])
         self.Y = np.array([[1., 2.2, 2.8, 4.1]])
@@ -56,4 +57,9 @@ class Test(TestCase):
         self.assertEqual(d_lin_reg_th0(self.X, self.th, self.th0).tolist(), ans)
 
     def test_d_square_loss_th0(self):
-        self.fail()
+        ans = [[4.1, 3.6999999999999993, 4.5, 3.9000000000000004]]
+        self.assertEqual(d_square_loss_th0(self.X, self.Y, self.th, self.th0).tolist(), ans)
+
+    def test_d_mean_square_loss_th0(self):
+        ans = [[4.05]]
+        self.assertEqual(d_mean_square_loss_th0(self.X, self.Y, self.th, self.th0).tolist(), ans)

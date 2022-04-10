@@ -82,32 +82,14 @@ def d_lin_reg_th0(x, th, th0):
 
 
 def d_square_loss_th0(x, y, th, th0):
-    """ Returns the gradient of square_loss(x, y, th, th0) with
-        respect to th0.
-
-    # Note: uses broadcasting!
-
-    # >>> X = np.array([[ 1.,  2.,  3.,  4.], [ 1.,  1.,  1.,  1.]])
-    # >>> Y = np.array([[ 1. ,  2.2,  2.8,  4.1]])
-    # >>> th = np.array([[ 1.  ], [ 0.05]]) ; th0 = np.array([[ 2.]])
-    # >>> d_square_loss_th0(X, Y, th, th0).tolist()
-    [[4.1, 3.6999999999999993, 4.5, 3.9000000000000004]]
-    """
+    """ Returns the gradient of square_loss(x, y, th, th0) with respect to th0.
+    # Note: uses broadcasting! """
     return 2 * (lin_reg(x, th, th0) - y) * d_lin_reg_th0(x, th, th0)
 
 
 def d_mean_square_loss_th0(x, y, th, th0):
-    """ Returns the gradient of mean_square_loss(x, y, th, th0) with
-    respect to th0.
-
-    # >>> X = np.array([[ 1.,  2.,  3.,  4.], [ 1.,  1.,  1.,  1.]])
-    # >>> Y = np.array([[ 1. ,  2.2,  2.8,  4.1]])
-    # >>> th = np.array([[ 1.  ], [ 0.05]]) ; th0 = np.array([[ 2.]])
-    # >>> d_mean_square_loss_th0(X, Y, th, th0).tolist()
-    [[4.05]]
-    """
-    # Your code here
-    pass
+    """ Returns the gradient of mean_square_loss(x, y, th, th0) with respect to th0. """
+    return np.mean(d_square_loss_th0(x, y, th, th0), axis=1, keepdims=True)
 
 
 def d_ridge_obj_th(x, y, th, th0, lam):
