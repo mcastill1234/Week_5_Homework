@@ -63,3 +63,18 @@ class Test(TestCase):
     def test_d_mean_square_loss_th0(self):
         ans = [[4.05]]
         self.assertEqual(d_mean_square_loss_th0(self.X, self.Y, self.th, self.th0).tolist(), ans)
+
+    def test_d_ridge_obj_th(self):
+        ans1 = [[10.15], [4.05]]
+        self.assertEqual(d_ridge_obj_th(self.X, self.Y, self.th, self.th0, 0.0).tolist(), ans1)
+        ans2 = [[11.15], [4.1]]
+        self.assertEqual(d_ridge_obj_th(self.X, self.Y, self.th, self.th0, 0.5).tolist(), ans2)
+        ans3 = [[210.15], [14.05]]
+        self.assertEqual(d_ridge_obj_th(self.X, self.Y, self.th, self.th0, 100.).tolist(), ans3)
+
+    def test_d_ridge_obj_th0(self):
+        ans1 = [[4.05]]
+        self.assertEqual(d_ridge_obj_th0(self.X, self.Y, self.th, self.th0, 0.0).tolist(), ans1)
+        self.assertEqual(d_ridge_obj_th0(self.X, self.Y, self.th, self.th0, 0.5).tolist(), ans1)
+        self.assertEqual(d_ridge_obj_th0(self.X, self.Y, self.th, self.th0, 100.).tolist(), ans1)
+

@@ -93,43 +93,15 @@ def d_mean_square_loss_th0(x, y, th, th0):
 
 
 def d_ridge_obj_th(x, y, th, th0, lam):
-    """Return the derivative of tghe ridge objective value with respect
-    to theta.
-
-    Note: uses broadcasting to add d x n to d x 1 array below
-
-    # >>> X = np.array([[ 1.,  2.,  3.,  4.], [ 1.,  1.,  1.,  1.]])
-    # >>> Y = np.array([[ 1. ,  2.2,  2.8,  4.1]])
-    # >>> th = np.array([[ 1.  ], [ 0.05]]) ; th0 = np.array([[ 2.]])
-    # >>> d_ridge_obj_th(X, Y, th, th0, 0.0).tolist()
-    [[10.15], [4.05]]
-    # >>> d_ridge_obj_th(X, Y, th, th0, 0.5).tolist()
-    [[11.15], [4.1]]
-    # >>> d_ridge_obj_th(X, Y, th, th0, 100.).tolist()
-    [[210.15], [14.05]]
-    """
-    # Your code here
-    pass
+    """ Return the derivative of tghe ridge objective value with respect to theta.
+    Note: uses broadcasting to add d x n to d x 1 array below """
+    return d_mean_square_loss_th(x, y, th, th0) + 2 * lam * th
 
 
 def d_ridge_obj_th0(x, y, th, th0, lam):
-    """Return the derivative of tghe ridge objective value with respect
-    to theta.
-
-    Note: uses broadcasting to add d x n to d x 1 array below
-
-    # >>> X = np.array([[ 1.,  2.,  3.,  4.], [ 1.,  1.,  1.,  1.]])
-    # >>> Y = np.array([[ 1. ,  2.2,  2.8,  4.1]])
-    # >>> th = np.array([[ 1.  ], [ 0.05]]) ; th0 = np.array([[ 2.]])
-    # >>> d_ridge_obj_th0(X, Y, th, th0, 0.0).tolist()
-    [[4.05]]
-    # >>> d_ridge_obj_th0(X, Y, th, th0, 0.5).tolist()
-    [[4.05]]
-    # >>> d_ridge_obj_th0(X, Y, th, th0, 100.).tolist()
-    [[4.05]]
-    """
-    # Your code here
-    pass
+    """ Return the derivative of tghe ridge objective value with respect to theta.
+    Note: uses broadcasting to add d x n to d x 1 array below """
+    return d_mean_square_loss_th0(x, y, th, th0)
 
 
 # Concatenates the gradients with respect to theta and theta_0
