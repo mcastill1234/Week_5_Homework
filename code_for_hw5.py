@@ -118,20 +118,15 @@ def sgd(X, y, J, dJ, w0, step_size_fn, max_iter):
     X: a standard data array (d by n)
     y: a standard labels row vector (1 by n)
 
-    J: a cost function whose input is a data point (a column vector),
-    a label (1 by 1) and a weight vector w (a column vector) (in that
-    order), and which returns a scalar.
+    J: a cost function whose input is a data point (a column vector), a label (1 by 1) and a weight vector w
+    (a column vector) (in that order), and which returns a scalar.
 
-    dJ: a cost function gradient (corresponding to J) whose input is a
-    data point (a column vector), a label (1 by 1) and a weight vector
-    w (a column vector) (also in that order), and which returns a
-    column vector.
+    dJ: a cost function gradient (corresponding to J) whose input is a data point (a column vector), a label (1 by 1)
+    and a weight vector w (a column vector) (also in that order), and which returns a column vector.
 
-    w0: an initial value of weight vector www, which is a column
-    vector.
+    w0: an initial value of weight vector www, which is a column vector.
 
-    step_size_fn: a function that is given the (zero-indexed)
-    iteration index (an integer) and returns a step size.
+    step_size_fn: a function that is given the (zero-indexed) iteration index (an integer) and returns a step size.
 
     max_iter: the number of iterations to perform
 
@@ -141,8 +136,17 @@ def sgd(X, y, J, dJ, w0, step_size_fn, max_iter):
     ws: the list of values of www found during all the iterations
 
     """
-    # Your code here
-    pass
+    prev_w = w0
+    fs = []
+    ws = []
+    for i in range(max_iter):
+        prev_J, prev_grad = J(prev_w), dJ(prev_w)
+        fs.append(prev_J)
+        ws.append(prev_w)
+        if i == max_iter - 1:
+            return prev_w, fs, ws
+        step = step_size_fn(i)
+        prev_w = prev_w - step * prev_grad
 
 
 ############################################################

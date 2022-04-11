@@ -78,3 +78,15 @@ class Test(TestCase):
         self.assertEqual(d_ridge_obj_th0(self.X, self.Y, self.th, self.th0, 0.5).tolist(), ans1)
         self.assertEqual(d_ridge_obj_th0(self.X, self.Y, self.th, self.th0, 100.).tolist(), ans1)
 
+    def test_sgd(self):
+        X = np.array([[0.0, 0.1, 0.2, 0.3, 0.42, 0.52, 0.72, 0.78, 0.84, 1.0],
+                      [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]])
+        y = np.array([[0.4, 0.6, 1.2, 0.1, 0.22, -0.6, -1.5, -0.5, -0.5, 0.0]])
+        def J(Xi, yi, w):
+            # translate from (1-augmented X, y, theta) to (separated X, y, th, th0) format
+            return float(ridge_obj(Xi[:-1, :], yi, w[:-1, :], w[-1:, :], 0))
+
+        def dJ(Xi, yi, w):
+            def f(w): return J(Xi, yi, w)
+
+        print(sgd(X, y, J, dJ, cv([0.]), lambda i: 0.1, 1000))
