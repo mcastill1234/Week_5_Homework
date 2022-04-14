@@ -139,8 +139,12 @@ def sgd(X, y, J, dJ, w0, step_size_fn, max_iter):
     prev_w = w0
     fs = []
     ws = []
+    np.random.seed(0)
     for i in range(max_iter):
-        prev_J, prev_grad = J(prev_w), dJ(prev_w)
+        j = np.random.randint(X.shape[1])
+        Xj = X[:, j:j + 1]
+        yj = y[:, j:j + 1]
+        prev_J, prev_grad = J(Xj, yj, prev_w), dJ(Xj, yj, prev_w)
         fs.append(prev_J)
         ws.append(prev_w)
         if i == max_iter - 1:
@@ -187,8 +191,12 @@ def sgdTest():
 
         return num_grad(f)(w)
 
-    # Insert code to call sgd on the above
-    pass
+    def ridge_step_size_fn(i):
+        return 2 / (i + 1) ** 0.5
+
+    init = np.zeros((X.shape[0], 1))
+
+    w, fs, xs = sgd(X, y, J, dJ, init, ridge_step_size_fn, 50)
 
 
 ############################################################
@@ -396,7 +404,7 @@ def auto_data_and_values(auto_data, features):
 # returns both the standardized vector and the mean, variance
 def std_y(row):
     """
-    >>> std_y(np.array([[1,2,3,4]]))
+    # >>> std_y(np.array([[1,2,3,4]]))
     (array([[-1.34164079, -0.4472136 ,  0.4472136 ,  1.34164079]]), array([2.5]), array([1.11803399]))
     """
     mu = np.mean(row, axis=1)
